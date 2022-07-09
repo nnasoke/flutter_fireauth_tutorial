@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_fireauth_tutorial/screens/email_password_login.dart';
-import 'package:flutter_fireauth_tutorial/screens/email_password_signin.dart';
+import 'package:flutter_fireauth_tutorial/screens/email_password_signup.dart';
 import 'package:flutter_fireauth_tutorial/screens/home.dart';
 
 class AppRouter {
@@ -15,7 +15,7 @@ class AppRouter {
       case emailPasswordLogIn:
         return MaterialPageRoute(builder: (context) => EmailPasswordLogIn());
       case emailPasswordSignIn:
-        return MaterialPageRoute(builder: (context) => EmailPasswordSignIn());
+        return MaterialPageRoute(builder: (context) => EmailPasswordSignUp());
       default:
         return MaterialPageRoute(builder: (context) => Container());
     }

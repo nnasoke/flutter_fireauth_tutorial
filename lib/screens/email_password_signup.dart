@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class EmailPasswordLogIn extends StatefulWidget {
-  EmailPasswordLogIn({Key? key}) : super(key: key);
+class EmailPasswordSignUp extends StatefulWidget {
+  EmailPasswordSignUp({Key? key}) : super(key: key);
 
   @override
-  State<EmailPasswordLogIn> createState() => _EmailPasswordLogInState();
+  State<EmailPasswordSignUp> createState() => _EmailPasswordSignUpState();
 }
 
-class _EmailPasswordLogInState extends State<EmailPasswordLogIn> {
+class _EmailPasswordSignUpState extends State<EmailPasswordSignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +18,7 @@ class _EmailPasswordLogInState extends State<EmailPasswordLogIn> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text(
-              "Email Log In",
+              "Sign Up",
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -30,6 +30,7 @@ class _EmailPasswordLogInState extends State<EmailPasswordLogIn> {
                 hintText: "Email",
               ),
             ),
+            const Divider(height: 30),
             const TextField(
               decoration: InputDecoration(
                 hintText: "Password",
@@ -38,17 +39,25 @@ class _EmailPasswordLogInState extends State<EmailPasswordLogIn> {
               enableSuggestions: false,
               autocorrect: false,
             ),
+            const TextField(
+              decoration: InputDecoration(
+                hintText: "Comfirm Password",
+              ),
+              obscureText: true,
+              enableSuggestions: false,
+              autocorrect: false,
+            ),
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {},
-              child: const Text("Log in"),
+              child: const Text("Sign Up"),
             ),
             const SizedBox(height: 30),
-            const Text("Not a member yet?"),
+            const Text("Already a member?"),
             const SizedBox(height: 5),
             ElevatedButton(
               onPressed: () {},
-              child: const Text("Sign up"),
+              child: const Text("Log In"),
             ),
           ],
         ),
