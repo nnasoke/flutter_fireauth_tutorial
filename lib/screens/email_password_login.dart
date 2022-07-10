@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_fireauth_tutorial/app_router.dart';
 
 class EmailPasswordLogIn extends StatefulWidget {
   EmailPasswordLogIn({Key? key}) : super(key: key);
@@ -47,7 +48,9 @@ class _EmailPasswordLogInState extends State<EmailPasswordLogIn> {
             const Text("Not a member yet?"),
             const SizedBox(height: 5),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, AppRouter.emailPasswordSignUp);
+              },
               child: const Text("Sign up"),
             ),
           ],

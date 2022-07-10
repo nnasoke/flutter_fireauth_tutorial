@@ -6,7 +6,7 @@ import 'package:flutter_fireauth_tutorial/screens/home.dart';
 class AppRouter {
   static const String home = "/";
   static const String emailPasswordLogIn = "/email-password-login";
-  static const String emailPasswordSignIn = "/email-password-signin";
+  static const String emailPasswordSignUp = "/email-password-signup";
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -14,7 +14,7 @@ class AppRouter {
         return MaterialPageRoute(builder: (context) => HomeScreen());
       case emailPasswordLogIn:
         return MaterialPageRoute(builder: (context) => EmailPasswordLogIn());
-      case emailPasswordSignIn:
+      case emailPasswordSignUp:
         return MaterialPageRoute(builder: (context) => EmailPasswordSignUp());
       default:
         return MaterialPageRoute(builder: (context) => Container());
