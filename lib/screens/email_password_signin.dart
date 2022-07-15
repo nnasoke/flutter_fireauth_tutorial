@@ -1,60 +1,51 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_fireauth_tutorial/app_router.dart';
 import 'package:flutter_fireauth_tutorial/toast.dart';
 
-class EmailPasswordSignUp extends StatefulWidget {
-  EmailPasswordSignUp({Key? key}) : super(key: key);
+class EmailPasswordSignIn extends StatefulWidget {
+  EmailPasswordSignIn({Key? key}) : super(key: key);
 
   @override
-  State<EmailPasswordSignUp> createState() => _EmailPasswordSignUpState();
+  State<EmailPasswordSignIn> createState() => _EmailPasswordSignInState();
 }
 
-class _EmailPasswordSignUpState extends State<EmailPasswordSignUp> {
+class _EmailPasswordSignInState extends State<EmailPasswordSignIn> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  final passwordConfirmController = TextEditingController();
 
-  void backToSignIn() {
-    Navigator.pop(context);
-  }
-
-  Future signUp() async {
-    String email = emailController.text.trim();
-    String password = passwordController.text.trim();
-    String passwordConfirm = passwordConfirmController.text.trim();
-
-    if (email.isEmpty) {
-      Toast.showToast(context, 'Email can not be empty.');
+  Future signIn() async {
+    if (emailController.text.isEmpty || passwordController.text.isEmpty) {
       return;
     }
-
-    if (password != passwordConfirm) {
-      Toast.showToast(context, 'Password does not match.');
-      return;
-    }
-
     try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
       );
-      backToSignIn();
     } catch (e) {
       Toast.showToast(context, e.toString());
     }
   }
 
   @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(),
+      appBar: AppBar(),
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 40),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text(
-              "Sign Up",
+              "Sign in, please",
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -67,7 +58,6 @@ class _EmailPasswordSignUpState extends State<EmailPasswordSignUp> {
                 hintText: "Email",
               ),
             ),
-            const SizedBox(height: 30),
             TextField(
               controller: passwordController,
               decoration: const InputDecoration(
@@ -77,26 +67,19 @@ class _EmailPasswordSignUpState extends State<EmailPasswordSignUp> {
               enableSuggestions: false,
               autocorrect: false,
             ),
-            TextField(
-              controller: passwordConfirmController,
-              decoration: const InputDecoration(
-                hintText: "Comfirm Password",
-              ),
-              obscureText: true,
-              enableSuggestions: false,
-              autocorrect: false,
-            ),
             const SizedBox(height: 20),
             ElevatedButton(
-              onPressed: signUp,
-              child: const Text("Sign Up"),
+              onPressed: signIn,
+              child: const Text("Log in"),
             ),
             const SizedBox(height: 30),
-            const Text("Already a member?"),
+            const Text("Not a member yet?"),
             const SizedBox(height: 5),
             ElevatedButton(
-              onPressed: backToSignIn,
-              child: const Text("Log In"),
+              onPressed: () {
+                Navigator.pushNamed(context, AppRouter.emailPaswordSignUp);
+              },
+              child: const Text("Sign up"),
             ),
           ],
         ),

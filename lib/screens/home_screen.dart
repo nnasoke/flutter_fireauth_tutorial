@@ -23,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(height: 50),
             ElevatedButton(
               onPressed: () {
-                Navigator.pushNamed(context, AppRouter.emailPasswordLogIn);
+                Navigator.pushNamed(context, AppRouter.emailPaswordHome);
               },
               child: const Text("Email/Password"),
             ),
