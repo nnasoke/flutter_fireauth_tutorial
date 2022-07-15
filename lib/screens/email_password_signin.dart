@@ -67,19 +67,49 @@ class _EmailPasswordSignInState extends State<EmailPasswordSignIn> {
               enableSuggestions: false,
               autocorrect: false,
             ),
+            const SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context)
+                        .pushNamed(AppRouter.emailPaswordReset);
+                  },
+                  child: const Text(
+                    'Forgoet password?',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.blueAccent,
+                    ),
+                  ),
+                )
+              ],
+            ),
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: signIn,
               child: const Text("Log in"),
             ),
             const SizedBox(height: 30),
-            const Text("Not a member yet?"),
-            const SizedBox(height: 5),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, AppRouter.emailPaswordSignUp);
-              },
-              child: const Text("Sign up"),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text("Not a member yet?"),
+                const SizedBox(width: 10),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, AppRouter.emailPaswordSignUp);
+                  },
+                  child: const Text(
+                    'Sign up now',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.blueAccent,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ],
         ),

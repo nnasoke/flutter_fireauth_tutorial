@@ -45,6 +45,14 @@ class _EmailPasswordSignUpState extends State<EmailPasswordSignUp> {
   }
 
   @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    passwordConfirmController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       // appBar: AppBar(),
