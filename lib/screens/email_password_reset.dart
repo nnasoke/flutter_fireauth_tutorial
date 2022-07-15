@@ -11,16 +11,26 @@ class EmailPasswordReset extends StatefulWidget {
 
 class _EmailPasswordResetState extends State<EmailPasswordReset> {
   final emailController = TextEditingController();
+  bool progressing = false;
 
   void resetPassword() {
+    setState(() {
+      progressing = true;
+    });
     FirebaseAuth.instance
         .sendPasswordResetEmail(email: emailController.text.trim())
         .then((value) {
+      setState(() {
+        progressing = false;
+      });
       Toast.showToast(
         context,
         'Reset link has been sent, please check your email box.',
       );
     }).onError((e, stackTrace) {
+      setState(() {
+        progressing = false;
+      });
       Toast.showToast(context, e.toString());
     });
   }
@@ -46,12 +56,14 @@ class _EmailPasswordResetState extends State<EmailPasswordReset> {
               ),
             ),
             const SizedBox(height: 20),
-            MaterialButton(
-              onPressed: resetPassword,
-              color: Colors.blueGrey,
-              textColor: Colors.white,
-              child: Text('Reset Password'),
-            ),
+            progressing
+                ? const CircularProgressIndicator()
+                : MaterialButton(
+                    onPressed: resetPassword,
+                    color: Colors.blueGrey,
+                    textColor: Colors.white,
+                    child: const Text('Reset Password'),
+                  ),
           ],
         ),
       ),

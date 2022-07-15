@@ -13,11 +13,16 @@ class EmailPasswordSignIn extends StatefulWidget {
 class _EmailPasswordSignInState extends State<EmailPasswordSignIn> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  bool progressing = false;
 
   Future signIn() async {
     if (emailController.text.isEmpty || passwordController.text.isEmpty) {
       return;
     }
+
+    setState(() {
+      progressing = true;
+    });
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: emailController.text.trim(),
@@ -25,6 +30,10 @@ class _EmailPasswordSignInState extends State<EmailPasswordSignIn> {
       );
     } catch (e) {
       Toast.showToast(context, e.toString());
+    } finally {
+      setState(() {
+        progressing = false;
+      });
     }
   }
 
@@ -87,10 +96,12 @@ class _EmailPasswordSignInState extends State<EmailPasswordSignIn> {
               ],
             ),
             const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: signIn,
-              child: const Text("Log in"),
-            ),
+            progressing
+                ? const CircularProgressIndicator()
+                : ElevatedButton(
+                    onPressed: signIn,
+                    child: const Text("Log in"),
+                  ),
             const SizedBox(height: 30),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

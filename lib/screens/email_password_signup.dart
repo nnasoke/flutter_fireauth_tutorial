@@ -13,6 +13,7 @@ class _EmailPasswordSignUpState extends State<EmailPasswordSignUp> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final passwordConfirmController = TextEditingController();
+  bool progressing = false;
 
   void backToSignIn() {
     Navigator.pop(context);
@@ -33,6 +34,9 @@ class _EmailPasswordSignUpState extends State<EmailPasswordSignUp> {
       return;
     }
 
+    setState(() {
+      progressing = true;
+    });
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
@@ -41,6 +45,10 @@ class _EmailPasswordSignUpState extends State<EmailPasswordSignUp> {
       backToSignIn();
     } catch (e) {
       Toast.showToast(context, e.toString());
+    } finally {
+      setState(() {
+        progressing = false;
+      });
     }
   }
 
@@ -95,10 +103,12 @@ class _EmailPasswordSignUpState extends State<EmailPasswordSignUp> {
               autocorrect: false,
             ),
             const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: signUp,
-              child: const Text("Sign Up"),
-            ),
+            progressing
+                ? const CircularProgressIndicator()
+                : ElevatedButton(
+                    onPressed: signUp,
+                    child: const Text("Sign Up"),
+                  ),
             const SizedBox(height: 30),
             const Text("Already a member?"),
             const SizedBox(height: 5),
